@@ -28,8 +28,14 @@ def validate_session(chat_id):
     logger.info('Validando sessão de ' + str(chat_id))
     if not SessionManager.getInstance().checkSession(chat_id):
         session_id = create_session()
-        SessionManager.getInstance().updateSession(chat_id, session_id)
-        logger.info('Sessão recriada para ' + str(chat_id))
+        logger.info('Sessão criada para ' + str(chat_id))
+    else:
+        session_id = SessionManager.getInstance().getSession(chat_id)
+        logger.info('Sessão atualizada para ' + str(chat_id))
+
+    SessionManager.getInstance().updateSession(chat_id, session_id)
+
+
 
 def send_message(session_id, message):
     logger.info('Enviando mensagem para o Assistant: ' + message)
